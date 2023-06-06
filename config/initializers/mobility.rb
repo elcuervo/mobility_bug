@@ -1,5 +1,14 @@
 Mobility.configure do
+  # PLUGINS
   plugins do
+    # Backend
+    #
+    # Sets the default backend to use in models. This can be overridden in models
+    # by passing +backend: ...+ to +translates+.
+    #
+    # To default to a different backend globally, replace +:key_value+ by another
+    # backend name.
+    #
     backend :key_value
 
     # ActiveRecord
@@ -15,6 +24,8 @@ Mobility.configure do
     #
     reader
     writer
+
+    column_fallback true
 
     # Backend Reader
     #
@@ -90,7 +101,7 @@ Mobility.configure do
     # +I18n.available_locales+, but you can pass the set of locales with
     # +translates+ and/or set a global default here.
     #
-    locale_accessors
+    # locale_accessors
     #
     # Or define specific defaults by uncommenting line below
     # locale_accessors [:en, :ja]
