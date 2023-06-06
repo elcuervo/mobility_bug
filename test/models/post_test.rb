@@ -5,11 +5,13 @@ class PostTest < ActiveSupport::TestCase
     post = Post.create(title: 'something')
 
     post.comments.create!(text: 'english')
+    post.comments.create!(text_es: 'español')
+    post.comments.create!(text_es: 'kaigi')
+
+    assert_equal ['english'], post.comments.pluck(:text)
 
     I18n.with_locale(:es) do
-      post.comments.create!(text: 'español')
+      assert_equal ['español'], post.comments.pluck(:text)
     end
-
-    assert_equal post.comments.pluck(:text), ['english']
   end
 end

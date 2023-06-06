@@ -93,7 +93,7 @@ Mobility.configure do
     # +method_missing+ is very slow.  (You can use both fallthrough and locale
     # accessor plugins together without conflict.)
     #
-    # fallthrough_accessors
+    fallthrough_accessors
 
     # Locale Accessors
     #
