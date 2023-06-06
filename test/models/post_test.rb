@@ -4,9 +4,10 @@ class PostTest < ActiveSupport::TestCase
   test 'gets translated version via association' do
     post = Post.create(title: 'something')
 
-    post.comments.create!(text: 'english')
-    post.comments.create!(text_es: 'español')
-    post.comments.create!(text_es: 'kaigi')
+    comment = post.comments.create!(text: 'english')
+
+    comment.update!(text_es: 'español')
+    comment.update!(text_ja: 'kaigi')
 
     assert_equal ['english'], post.comments.pluck(:text)
 
