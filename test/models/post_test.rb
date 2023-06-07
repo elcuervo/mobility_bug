@@ -3,7 +3,7 @@ require 'test_helper'
 class PostTest < ActiveSupport::TestCase
   def comments(post)
     c = post.comments
-    c = c.includes(:string_translations) unless I18n.default_locale == I18n.locale
+    c = c.eager_load(:string_translations) unless I18n.default_locale == I18n.locale
 
     c.pluck(:text)
   end
