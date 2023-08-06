@@ -1,10 +1,19 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
   def comments(post)
     c = post.comments
-    c = c.eager_load(:string_translations) unless I18n.default_locale == I18n.locale
-
+    unless I18n.default_locale == I18n.locale
+      c = c.joins('INNER JOIN mobility_string_translations
+                   ON mobility_string_translations.translatable_id = comments.id')
+      c = c.where(
+        "mobility_string_translations.translatable_type = 'Comment'
+        AND mobility_string_translations.key = 'text'
+        AND mobility_string_translations.locale = ?", I18n.locale.to_s
+      )
+    end
     c.pluck(:text)
   end
 
